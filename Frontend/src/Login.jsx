@@ -94,6 +94,7 @@ const Login = () => {
                     };
                     localStorage.setItem('userdata', JSON.stringify(userData));
                     setNavigate(true);
+                  // eslint-disable-next-line no-unused-vars
                   } catch (e) {
                     alert('Failed to process the login. Try again!');
                   }

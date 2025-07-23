@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import NicknameSetup from './NicknameSetup'; // Import the enhanced component
 
 const Navbar = (props) => {
+  
   const navigate = useNavigate(); // Add navigation hook
   const storedUserData = localStorage.getItem("userdata");
   const UserData = storedUserData ? JSON.parse(storedUserData) : null;
@@ -190,6 +191,7 @@ const Navbar = (props) => {
                   src={UserData?.picture ? UserData.picture : UserImg}
                   className="w-full h-full object-cover"
                   alt="User Avatar"
+                  onError={(e) => e.target.src = UserImg} // Fallback image
                 />
               </motion.button>
 
