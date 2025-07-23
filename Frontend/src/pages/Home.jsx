@@ -20,7 +20,7 @@ const Home = () => {
   const [messages, setMessages] = useState([]);
   const [isConnecting, setIsConnecting] = useState(false);
 
-  const Backend = 'http://localhost:3000';
+  const Backend = 'https://hotspot-83z2.onrender.com';
   const UserData = JSON.parse(localStorage.getItem('userdata'));
   const nickName = localStorage.getItem('nickname');
 
