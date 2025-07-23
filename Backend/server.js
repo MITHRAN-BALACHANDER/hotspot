@@ -11,59 +11,60 @@ app.use(express.json());
 const server = http.createServer(app);
 
 const io = socketio(server, {
-    cors: {
-        origin: "*", 
-        methods: ["GET", "POST"],
-        allowedHeaders: ["my-custom-header"],
-        credentials: true
-    }
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  }
 });
 
 io.on('connection', (socket) => {
-    console.log(`🔵 New connection: ${socket.id}`);
+  console.log(`🔵 New connection: ${socket.id}`);
 
-    socket.on('join', ({ name, room }, callback) => {
-        const { user, error } = addUsers(socket.id, name, room);
-        
-        if (error) {
-            if (callback) callback(error);
-            return;
-        }
+  socket.on('join', ({ name, room }, callback) => {
+    const { user, error } = addUsers(socket.id, name, room);
 
-        console.log(`✅ User joined: ${user.name} in Room: ${user.room}`);
+    if (error) {
+      if (callback) callback(error);
+      return;
+    }
 
-        socket.join(user.room);
+    console.log(`✅ User joined: ${user.name} in Room: ${user.room}`);
 
-        // Notify user and room members
-        socket.emit('toastmessage', { user: 'admin', text: `Welcome, ${user.name}!` });
-        socket.emit('message', { user: 'admin', text: `You joined the room ${user.room}` });
+    socket.join(user.room);
 
-        socket.broadcast.to(user.room).emit('toastmessage', { user: 'admin', text: `${user.name} has joined` });
-        socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined` });
+    // Notify user and room members
+    socket.emit('toastmessage', { user: 'admin', text: `Welcome, ${user.name}!` });
+    socket.emit('message', { user: 'admin', text: `You joined the room ${user.room}` });
 
-        if (callback) callback(); // Acknowledge successful join
-    });
+    socket.broadcast.to(user.room).emit('toastmessage', { user: 'admin', text: `${user.name} has joined` });
+    socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined` });
 
-    socket.on('sendMessage', (message, callback) => {
-        const user = getUser(socket.id);
+    if (callback) callback(); // Acknowledge successful join
+  });
 
-        if (user) {
-            io.to(user.room).emit('message', { user: user.name, text: message });
-        } else {
-            if (callback) callback("❌ User not found");
-        }
-    });
+  socket.on('sendMessage', (message, callback) => {
+    const user = getUser(socket.id);
 
-    socket.on('disconnect', () => {
-        console.log(`🔴 User disconnected: ${socket.id}`);
+    if (user) {
+      io.to(user.room).emit('message', { user: user.name, text: message });
+      if(callback) callback(); // Acknowledge success
+    } else {
+      if (callback) callback("❌ User not found");
+    }
+  });
 
-        const user = removeUser(socket.id);
-        if (user) {
-            io.to(user.room).emit('message', { user: 'admin', text: `${user.name} has left` });
-        }
-    });
+  socket.on('disconnect', () => {
+    console.log(`🔴 User disconnected: ${socket.id}`);
+
+    const user = removeUser(socket.id);
+    if (user) {
+      io.to(user.room).emit('message', { user: 'admin', text: `${user.name} has left` });
+    }
+  });
 });
 
-server.listen(199, () => {
-    console.log("🚀 Server running at http://localhost:199");
+// Use a higher port number that does not require root privileges
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
