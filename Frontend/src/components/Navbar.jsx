@@ -253,7 +253,7 @@ const Navbar = (props) => {
                           className="w-full flex items-center space-x-3 px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-200"
                         >
                           <Info size={18} />
-                          <span className="font-medium">About Us</span>
+                          <span className="font-medium">About </span>
                         </Link>
                       </motion.div>
 
