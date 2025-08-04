@@ -19,8 +19,8 @@ const Home = () => {
   const [code, setCode] = useState(null);
   const [messages, setMessages] = useState([]);
   const [isConnecting, setIsConnecting] = useState(false);
-const Backend="https://hotspot.bmithran15.workers.dev";
-  //  const Backend = 'https://hotspot-83z2.onrender.com';
+// const Backend="https://hotspot.bmithran15.workers.dev";
+    const Backend = 'https://hotspot-83z2.onrender.com';
   const UserData = JSON.parse(localStorage.getItem('userdata'));
   const nickName = localStorage.getItem('nickname');
 
