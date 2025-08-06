@@ -3,7 +3,7 @@
 A modern, real-time chat application built with React and Node.js, featuring Google OAuth authentication, real-time messaging, and a beautiful glassmorphism UI design.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-ISC-green.svg)
+
 ![Node](https://img.shields.io/badge/node.js-v18+-brightgreen.svg)
 ![React](https://img.shields.io/badge/react-v19.0.0-blue.svg)
 
@@ -184,9 +184,7 @@ Hotspot is designed to work seamlessly across all device sizes:
 
 
 
-## 📄 License
 
-This project is licensed under the ISC License. See the LICENSE file for details.
 
 ## 👨‍💻 Authors
 - **Mithran B** - [GitHub Profile](https://github.com/MITHRAN-BALACHANDER)
