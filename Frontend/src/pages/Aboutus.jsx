@@ -164,15 +164,16 @@ const AboutUs = () => {
               ))}
             </div>
           </motion.div>
-{/* 
-          
+
+          {/* Developer Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
             className="bg-white/10 backdrop-blur-lg rounded-3xl border border-white/20 shadow-2xl p-6 sm:p-8"
           >
-            <div className="flex items-center mb-6">
+            
+                <div className="flex items-center mb-6">
               <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4">
                 <User size={24} className="text-white" />
               </div>
@@ -205,7 +206,7 @@ const AboutUs = () => {
                     
                     <motion.a
                       whileHover={{ scale: 1.05 }}
-                      href="http://portfolio-lake-three-41.vercel.app/"
+                      href="https://mithrandevlogs.vercel.app/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-4 py-2 rounded-full text-white font-medium transition-all duration-200"
@@ -227,10 +228,67 @@ const AboutUs = () => {
                       <ExternalLink size={14} />
                     </motion.a>
                   </div>
+                  </div>
+                </div>  
                 </div>
-              </div>
-            </div>
-          </motion.div> */}
+                <br></br>
+
+            <div className="bg-white/5 rounded-2xl border border-white/10 p-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-xl font-bold">
+                  AB
+                </div>
+                
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-white mb-2">Abishek </h3>
+                  <p className="text-blue-300 font-semibold mb-2">B-Tech IT</p>
+                  <p className="text-white/80 mb-4">Sri Shakthi Institute of Engineering and Technology</p>
+                  
+                  <div className="flex flex-wrap gap-4">
+                    <motion.a
+                      whileHover={{ scale: 1.05 }}
+                      href="https://www.linkedin.com/in/abisheks22it/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-full text-white font-medium transition-all duration-200"
+                    >
+                      <Linkedin size={16} />
+                      <span>LinkedIn</span>
+                      <ExternalLink size={14} />
+                    </motion.a>
+                    
+                    <motion.a
+                      whileHover={{ scale: 1.05 }}
+                      href="https://codewithabi.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-4 py-2 rounded-full text-white font-medium transition-all duration-200"
+                    >
+                      <Globe size={16} />
+                      <span>Portfolio</span>
+                      <ExternalLink size={14} />
+                    </motion.a>
+
+                    <motion.a
+                      whileHover={{ scale: 1.05 }}
+                      href="https://github.com/Abishek00ujj"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-full text-white font-medium transition-all duration-200"
+                    >
+                      <Github size={16} />
+                      <span>GitHub</span>
+                      <ExternalLink size={14} />
+                    </motion.a>
+                  </div>
+                </div>
+                </div>
+                </div>
+                <br></br>
+
+            
+             
+          </motion.div>
 
           {/* Footer */}
           <motion.div
