@@ -3,7 +3,7 @@
 A modern, real-time chat application built with React and Node.js, featuring Google OAuth authentication, real-time messaging, and a beautiful glassmorphism UI design.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-
+![License](https://img.shields.io/badge/license-ISC-green.svg)
 ![Node](https://img.shields.io/badge/node.js-v18+-brightgreen.svg)
 ![React](https://img.shields.io/badge/react-v19.0.0-blue.svg)
 
@@ -71,6 +71,8 @@ npm start
 ```
 
 The backend server will start on `http://localhost:199`
+ 
+Note: If port 199 is in use or you prefer a different port, set the `PORT` environment variable (default in code is 3000). See Configuration section below.
 
 ### 3. Frontend Setup
 
@@ -91,10 +93,9 @@ The frontend application will start on `http://localhost:5173` (or the next avai
 
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/)
 2. Create a new project or select an existing one
-3. Enable the Google+ API
-4. Create OAuth 2.0 credentials
-5. Add your domain to authorized origins
-6. Configure your OAuth client ID in the frontend application
+3. Configure the OAuth consent screen (External or Internal)
+4. Create OAuth 2.0 Client ID (Web application) using Google Identity Services
+5. Copy the Client ID and set it in `Frontend/.env` as `VITE_GOOGLE_CLIENT_ID`
 
 ## 📁 Project Structure
 
@@ -162,17 +163,35 @@ Hotspot/
 
 ### Backend Configuration
 
-The backend server runs on port `199` by default. You can modify this in `Backend/server.js`:
+The backend server uses `PORT` from the environment (falls back to `3000`). You can confirm or modify this in `Backend/server.js`:
 
 ```javascript
-server.listen(199, () => {
-    console.log("🚀 Server running at http://localhost:199");
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
 ```
 
 ### Frontend Configuration
 
 Vite configuration can be found in `Frontend/vite.config.js`. The default development server runs on port `5173`.
+
+### Frontend Environment Variables
+
+Create a `Frontend/.env` file (or copy `Frontend/.env.example`) and set:
+
+```
+VITE_GOOGLE_CLIENT_ID=your-google-oauth-client-id
+```
+
+After editing `.env`, restart the Vite dev server so changes take effect.
+
+### OAuth Tips
+
+- Ensure your Authorized JavaScript origins exactly match the protocol and domain.
+- For local dev: `http://localhost:5173`
+- For production: `https://hotspotmithran.vercel.app`
+- Client ID must be exposed to the browser, so Vite requires the `VITE_` prefix.
 
 ## 📱 Responsive Design
 
@@ -181,6 +200,37 @@ Hotspot is designed to work seamlessly across all device sizes:
 - **Desktop**: Full-featured experience with optimal layout
 - **Tablet**: Adapted UI for medium screens
 - **Mobile**: Touch-optimized interface for small screens
+
+## 📡 Socket Events (How chat works)
+
+The app uses Socket.io for real-time messaging. Key events:
+
+- Client → Server: `join` — payload: `{ name, room }`
+   - Server validates and joins the socket to the room
+   - Emits to client: `toastmessage` and `message` with welcome text
+   - Broadcasts to room: `toastmessage` and `message` that the user joined
+
+- Client → Server: `sendMessage` — payload: `message: string`
+   - Server relays: `message` to the user’s room as `{ user, text }`
+
+- Disconnect
+   - Server broadcasts: `message` to the room that the user left
+
+Server location: `Backend/server.js` — helper functions in `Backend/entity.js`.
+
+## 🧰 Troubleshooting
+
+- Google sign-in window doesn’t show:
+   - Verify `VITE_GOOGLE_CLIENT_ID` is set and the dev server was restarted
+   - Check Authorized JavaScript origins in Google Cloud Console
+
+- Can’t connect to chat / no messages:
+   - Ensure backend is running and accessible from the frontend
+   - Confirm frontend points to the correct backend URL (if applicable)
+
+- Port already in use:
+   - Change the port or export `PORT` before starting the server
+   - On Windows PowerShell: `$env:PORT=4000; npm run dev`
 
 
 
