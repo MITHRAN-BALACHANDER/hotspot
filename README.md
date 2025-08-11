@@ -72,7 +72,7 @@ npm start
 
 The backend server will start on `http://localhost:199`
  
-Note: If port 199 is in use or you prefer a different port, set the `PORT` environment variable (default in code is 3000). See Configuration section below.
+Note: If port 199 is in use or you prefer a different port, set the `PORT` environment variable (default in code is 199). See Configuration section below.
 
 ### 3. Frontend Setup
 
@@ -163,10 +163,10 @@ Hotspot/
 
 ### Backend Configuration
 
-The backend server uses `PORT` from the environment (falls back to `3000`). You can confirm or modify this in `Backend/server.js`:
+The backend server uses `PORT` from the environment (falls back to `199`). You can confirm or modify this in `Backend/server.js`:
 
 ```javascript
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 199;
 server.listen(PORT, () => {
    console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
