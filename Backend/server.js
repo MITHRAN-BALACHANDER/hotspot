@@ -2,11 +2,22 @@ const express = require('express');
 const http = require('http');
 const socketio = require("socket.io");
 const cors = require('cors');
+
+const path = require('path');
 const { addUsers, removeUser, getUser } = require('./entity');
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Serve frontend static files (for Docker all-in-one)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Handle client-side routing - serve index.html for all non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 const server = http.createServer(app);
 
