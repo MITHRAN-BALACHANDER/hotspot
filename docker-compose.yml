@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  hotspot-app:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+      - PORT=80
+    restart: unless-stopped
+    container_name: hotspot-chat
+    networks:
+      - hotspot-network
+
+networks:
+  hotspot-network:
+    driver: bridge
